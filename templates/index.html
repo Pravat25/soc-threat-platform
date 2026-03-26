@@ -32,9 +32,11 @@
 </div>
 
 <div class="card">
-    <h2>Logs</h2>
-    <p>Log ingestion coming next...</p>
-</div>
+    <h2>📡 Live Logs</h2>
+
+{% for log in logs %}
+    <div class="card">{{ log }}</div>
+{% endfor %} </div>
 
 <div class="card">
     <h2>Alerts</h2>

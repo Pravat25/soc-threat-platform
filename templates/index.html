@@ -32,11 +32,20 @@
 </div>
 
 <div class="card">
-    <h2>📡 Live Logs</h2>
+<h2>📡 Live Logs & Alerts</h2>
 
 {% for log in logs %}
+  {% if "CRITICAL" in log %}
+        <div class="card" style="color:red;">{{ log }}</div>
+
+    {% elif "WARNING" in log %}
+        <div class="card" style="color:yellow;">{{ log }}</div>
+
+    {% else %}
     <div class="card">{{ log }}</div>
-{% endfor %} </div>
+    {% endif %} 
+{% endfor %}
+</div>
 
 <div class="card">
     <h2>Alerts</h2>

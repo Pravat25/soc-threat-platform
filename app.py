@@ -16,8 +16,15 @@ def read_logs():
 @app.route("/")
 def home():
     logs = read_logs()
-    processed_logs, stats = analyze_logs(logs)
-    return render_template("index.html", logs=processed_logs, stats=stats)
+    processed_logs, stats, top_ip, top_count = analyze_logs(logs)
+
+    return render_template(
+        "index.html",
+        logs=processed_logs,
+        stats=stats,
+        top_ip=top_ip,
+        top_count=top_count
+    )
 
 
 if __name__ == "__main__":

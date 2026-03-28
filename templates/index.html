@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>SOC Threat Platform</title>
+
     <style>
         body {
             background-color: #0d1117;
@@ -14,43 +15,107 @@
             color: #58a6ff;
         }
 
+        h2 {
+            color: #79c0ff;
+        }
+
         .card {
             background: #161b22;
             padding: 20px;
             margin: 10px 0;
             border-radius: 10px;
         }
+
+        .critical {
+            color: #ff4d4d;
+            border-left: 5px solid red;
+        }
+
+        .warning {
+            color: #ffd700;
+            border-left: 5px solid yellow;
+        }
+
+        .info {
+            color: #00ff9c;
+            border-left: 5px solid green;
+        }
     </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
+
 <body>
 
-<h1>SOC Threat Detection Platform</h1>
+<h1>🔐 SOC Threat Detection Platform</h1>
 
+<!-- Status -->
 <div class="card">
     <h2>Status</h2>
     <p>System is running...</p>
 </div>
 
+<!-- Statistics -->
 <div class="card">
-<h2>📡 Live Logs & Alerts</h2>
-
-{% for log in logs %}
-  {% if "CRITICAL" in log %}
-        <div class="card" style="color:red;">{{ log }}</div>
-
-    {% elif "WARNING" in log %}
-        <div class="card" style="color:yellow;">{{ log }}</div>
-
-    {% else %}
-    <div class="card">{{ log }}</div>
-    {% endif %} 
-{% endfor %}
+    <h2>📊 Statistics</h2>
+    <p>TCP: {{ stats.tcp }} | UDP: {{ stats.udp }} | ICMP: {{ stats.icmp }}</p>
+    <p style="color:yellow;">Warnings: {{ stats.warning }}</p>
+    <p style="color:red;">Critical: {{ stats.critical }}</p>
 </div>
 
+<!-- Top Attacker -->
 <div class="card">
-    <h2>Alerts</h2>
-    <p>Detection engine coming soon...</p>
+    <h2>🎯 Top Attacker</h2>
+    <p>IP: {{ top_ip }}</p>
+    <p>Requests: {{ top_count }}</p>
 </div>
+
+<!-- Logs -->
+<div class="card">
+    <h2>📡 Live Logs & Alerts</h2>
+
+    {% for log in logs %}
+
+        {% if "CRITICAL" in log %}
+            <div class="card critical">{{ log }}</div>
+
+        {% elif "WARNING" in log %}
+            <div class="card warning">{{ log }}</div>
+
+        {% else %}
+            <div class="card info">{{ log }}</div>
+
+        {% endif %}
+
+    {% endfor %}
+
+</div>
+
+<!-- Chart -->
+<div class="card">
+    <h2>📈 Traffic Overview</h2>
+    <canvas id="chart"></canvas>
+</div>
+
+<script>
+    var ctx = document.getElementById('chart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['TCP', 'UDP', 'ICMP'],
+            datasets: [{
+                label: 'Protocol Distribution',
+                data: [
+                    {{ stats.tcp }},
+                    {{ stats.udp }},
+                    {{ stats.icmp }}
+                ]
+            }]
+        }
+    });
+</script>
 
 </body>
 </html>

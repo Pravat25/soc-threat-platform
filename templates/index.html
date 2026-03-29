@@ -48,7 +48,7 @@
 
 <body>
 
-<h1>🔐 SOC Threat Detection Platform</h1>
+<h1> SOC Threat Detection Platform</h1>
 
 <!-- Status -->
 <div class="card">
@@ -58,7 +58,7 @@
 
 <!-- Statistics -->
 <div class="card">
-    <h2>📊 Statistics</h2>
+    <h2> Statistics</h2>
     <p>TCP: {{ stats.tcp }} | UDP: {{ stats.udp }} | ICMP: {{ stats.icmp }}</p>
     <p style="color:yellow;">Warnings: {{ stats.warning }}</p>
     <p style="color:red;">Critical: {{ stats.critical }}</p>
@@ -66,14 +66,14 @@
 
 <!-- Top Attacker -->
 <div class="card">
-    <h2>🎯 Top Attacker</h2>
+    <h2> Top Attacker</h2>
     <p>IP: {{ top_ip }}</p>
     <p>Requests: {{ top_count }}</p>
 </div>
 
 <!-- Logs -->
 <div class="card">
-    <h2>📡 Live Logs & Alerts</h2>
+    <h2> Live Logs & Alerts</h2>
 
     {% for log in logs %}
 
@@ -94,7 +94,7 @@
 
 <!-- Chart -->
 <div class="card">
-    <h2>📈 Traffic Overview</h2>
+    <h2> Traffic Overview</h2>
     <canvas id="chart"></canvas>
 </div>
 
